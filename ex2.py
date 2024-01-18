@@ -1,2 +1,3 @@
-if 5>2:
-    print("YES")
+x = "     aaa    aaa    aaa  aa  a a    "
+
+print(x.replace("a"," "))
