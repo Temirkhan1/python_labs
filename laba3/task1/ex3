@@ -1,0 +1,15 @@
+#ex3
+class shape() :
+    def audan(self, area) :
+        self.area = 0
+        print(shape.area)       
+        
+
+class rectangle(shape) :
+    def __init__(self, length, width) :
+        
+        self.length = length
+        self.width = width
+
+    def area_of_rectangle(self, length, width) :
+        print(length * width)
