@@ -1,0 +1,13 @@
+#ex2
+class shape() :
+    def audan(self, area) :
+        self.area = 0
+        print(shape.area)
+
+class square(shape) :
+    def __init__(self, length) :
+        
+        self.length = length
+
+    def area(length) :
+        print(length ** 2)
