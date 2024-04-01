@@ -32,7 +32,7 @@ class Paint(object):
         self.rectangle_button = Button(self.root, text='rectangle', command=self.use_rectangle)
         self.rectangle_button.grid(row=0, column=5)
 
-        self.circle_button = Button(self.root, text='rectangle', command=self.use_circle)
+        self.circle_button = Button(self.root, text='circle', command=self.use_circle)
         self.circle_button.grid(row=0, column=6)
 
 
