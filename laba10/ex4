@@ -1,0 +1,45 @@
+import psycopg2
+from config import *
+
+#function to retrieve data from the Phonebook table
+def get_Phonebook():
+    try:
+
+     
+        connection = psycopg2.connect(
+            host=host,
+            user=user,
+            password=password,
+            database=db_name
+        )
+        
+       
+        connection.autocommit = True
+
+        with connection.cursor() as cursor:
+            # Executing the SQL SELECT query to retrieve id and user_name from Phonebook table
+            cursor.execute("SELECT id, user_name FROM Phonebook ORDER BY user_name")
+            
+            # Printing the number of rows retrieved
+            print("The number of parts: ", cursor.rowcount)
+            
+            # Fetching the first row
+            row = cursor.fetchone()
+
+            # Looping through each row until no more rows are left
+            while row is not None:
+                # Printing each row
+                print(row)
+                # Fetching the next row
+                row = cursor.fetchone()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        # Handling exceptions, if any, during the execution of the query
+        print(error)
+
+# Entry point of the script
+if __name__ == '__main__':
+    # Calling the get_Phonebook function to retrieve data from Phonebook table
+    get_Phonebook()        
+
+# End of the script
