@@ -1,0 +1,50 @@
+import psycopg2
+from config import *
+
+#function to update the user_name in the Phonebook table based on id
+def update_Phonebook(id, user_name):
+    
+    updated_row_count = 0
+
+    #SQL query to update the user_name based on the id
+    sql = """ UPDATE Phonebook
+                SET user_name = %s
+                WHERE id = %s"""
+    try:
+        connection = psycopg2.connect(
+            host=host,
+            user=user,
+            password=password,
+            database=db_name
+        )
+
+        
+        # Setting autocommit to True to commit each transaction immediately
+        connection.autocommit = True 
+
+        
+        # Creating a cursor object to execute SQL queries
+        with  connection.cursor() as cursor:
+        
+            # Executing the SQL UPDATE query
+            cursor.execute(sql, (user_name, id))
+            
+            # Getting the number of rows affected by the update
+            updated_row_count = cursor.rowcount    
+
+        # Committing the transaction
+        connection.commit()
+        
+    except (Exception, psycopg2.DatabaseError) as error:
+        # Handling exceptions, if any, during the execution of the update operation
+        print(error)    
+    finally:
+        # Returning the number of updated rows
+        return updated_row_count
+
+# Entry point of the script
+if __name__ == '__main__':
+    # Calling the update_Phonebook function with sample id and user_name
+    update_Phonebook(500570, "Ismail")
+
+# End of the script
