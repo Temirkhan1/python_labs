@@ -1,0 +1,78 @@
+import psycopg2
+from config import *
+
+#function to add a new entry to the Phonebook table
+def add_entry(id, User_name, Phone_number):
+    try:
+        
+        connection = psycopg2.connect(
+            host=host,
+            user=user,
+            password=password,
+            database=db_name
+        )
+        
+        connection.autocommit = True
+
+        with connection.cursor() as cursor:
+        
+            # Executing the SQL INSERT query to add a new entry to the Phonebook table
+            cursor.execute(
+                "INSERT INTO Phonebook (id, User_name, Phone_number) VALUES (%s, %s, %s)",
+                (id, User_name, Phone_number)
+            )
+            print("Entry added successfully")
+
+    except Exception as ex:
+        print("[INFO] Error while working with Postgres:", ex)
+
+    finally:
+        #closing the database connection in the finally block
+        if connection:
+            connection.close()
+            print("[INFO] Postgres connection closed")
+
+
+#function to delete an entry from the Phonebook table
+def delete_entry(id, User_name, Phone_number):
+    try:
+        
+        connection = psycopg2.connect(
+            host=host,
+            user=user,
+            password=password,
+            database=db_name
+        )
+        
+       connection.autocommit = True
+
+        with connection.cursor() as cursor:
+            #executing the SQL DELETE query to delete the entry from the Phonebook table
+            cursor.execute(
+                "DELETE FROM Phonebook WHERE id = %s",
+                (id,)
+            )
+            cursor.execute(
+                "DELETE FROM Phonebook WHERE User_name = %s",
+                (User_name,)
+            )
+            cursor.execute(
+                "DELETE FROM Phonebook WHERE Phone_number = %s",
+                (Phone_number,)
+            )
+            print("Entry deleted successfully")
+
+    except Exception as ex:
+        #handling exceptions, if any, during the execution of the query
+        print("[INFO] Error while working with Postgres:", ex)
+
+    finally:
+        
+        if connection:
+            connection.close()
+            print("[INFO] Postgres connection closed")
+
+
+# Calling the delete_entry function to delete an entry from the Phonebook table
+delete_entry(500570, 'Ismail', 87473939665 )
+
